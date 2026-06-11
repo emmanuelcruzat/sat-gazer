@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SatGazer</title>
+    <script>
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("satgazer-theme") ||
+          (window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark"),
+      );
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">SatGazer</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-toggle" type="button"></button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>Satellites Above You</h2>
+        <p>
+          Real-time positions of satellites currently overhead, powered by N2YO.
+        </p>
+      </section>
+
+      <section class="controls">
+        <div class="location-display">
+          <span id="location-text">Detecting your location...</span>
+        </div>
+        <div class="filters">
+          <label for="category-select">Category:</label>
+          <select id="category-select">
+            <option value="0">All</option>
+            <option value="35">Space Stations</option>
+            <option value="17">GPS</option>
+            <option value="41">Weather</option>
+            <option value="1">Amateur Radio</option>
+            <option value="6">CubeSats</option>
+            <option value="24">Military</option>
+            <option value="18">Globalstar</option>
+            <option value="21">Iridium</option>
+          </select>
+          <label for="radius-input">Radius (°):</label>
+          <input type="number" id="radius-input" value="90" min="1" max="90" />
+          <button class="btn" id="refresh-btn">Refresh</button>
+        </div>
+      </section>
+
+      <section class="map-section">
+        <div id="map"></div>
+      </section>
+
+      <section class="sat-table-section">
+        <h2>
+          Satellites <span class="sat-count" id="sat-count"></span>
+        </h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>NORAD ID</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Altitude (km)</th>
+                <th>Launch Date</th>
+              </tr>
+            </thead>
+            <tbody id="sat-tbody">
+              <tr>
+                <td colspan="6" class="cell-loading">
+                  <div class="spinner"></div>
+                  Loading...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Satellite data provided by
+        <a href="https://www.n2yo.com" target="_blank">N2YO.com</a>. Map by
+        <a href="https://leafletjs.com" target="_blank">Leaflet</a> &amp;
+        <a href="https://carto.com/attributions" target="_blank">CARTO</a>.
+      </p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/theme.js"></script>
+    <script src="/index.js"></script>
+  </body>
+</html>

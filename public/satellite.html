@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satellite — SatGazer</title>
+    <script>
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("satgazer-theme") ||
+          (window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark"),
+      );
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">SatGazer</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-toggle" type="button"></button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="sat-detail-header">
+        <div>
+          <a href="/" class="back-link">← Back to satellites</a>
+          <h2 id="sat-name">Loading...</h2>
+          <div class="sat-norad" id="sat-norad"></div>
+        </div>
+        <div>
+          <span class="badge badge-shadow" id="eclipse-badge">—</span>
+        </div>
+      </section>
+
+      <div class="sat-layout">
+        <section class="map-section">
+          <div id="map"></div>
+        </section>
+
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-card-label">Latitude</div>
+            <div class="stat-card-value" id="stat-lat">—</div>
+            <div class="stat-card-unit">°</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Longitude</div>
+            <div class="stat-card-value" id="stat-lng">—</div>
+            <div class="stat-card-unit">°</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Altitude</div>
+            <div class="stat-card-value" id="stat-alt">—</div>
+            <div class="stat-card-unit">km</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Azimuth</div>
+            <div class="stat-card-value" id="stat-az">—</div>
+            <div class="stat-card-unit">°</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Elevation</div>
+            <div class="stat-card-value" id="stat-el">—</div>
+            <div class="stat-card-unit">°</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Right Asc.</div>
+            <div class="stat-card-value" id="stat-ra">—</div>
+            <div class="stat-card-unit">°</div>
+          </div>
+        </div>
+      </div>
+
+      <section class="passes-section">
+        <h2>Upcoming Visual Passes</h2>
+        <p class="section-note">
+          Visible passes from your location over the next 10 days (min. 5 min
+          duration).
+        </p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date &amp; Time</th>
+                <th>Duration</th>
+                <th>Max Elevation</th>
+                <th>Start Direction</th>
+                <th>End Direction</th>
+                <th>Magnitude</th>
+              </tr>
+            </thead>
+            <tbody id="passes-tbody">
+              <tr>
+                <td colspan="6" class="cell-loading">
+                  <div class="spinner"></div>
+                  Loading passes...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Satellite data provided by
+        <a href="https://www.n2yo.com" target="_blank">N2YO.com</a>. Map by
+        <a href="https://leafletjs.com" target="_blank">Leaflet</a> &amp;
+        <a href="https://carto.com/attributions" target="_blank">CARTO</a>.
+      </p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/theme.js"></script>
+    <script src="/satellite.js"></script>
+  </body>
+</html>
